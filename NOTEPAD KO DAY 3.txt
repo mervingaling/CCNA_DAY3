@@ -1,0 +1,166 @@
+DAY 3
+TASK : 1
+Network Engg + Programming/Linux = DEVOPS
+
+Ansible - open source automation tool 
+CMS - Configuration Managemenent System
+
+Ansible needs 2 :
+1. Control System (Device - PC) - Boss
+2. Remote System - Tauhan
+
+Ansible uses .YML extension
+YML - Yet Another Markup Language
+
+  - case sensitive
+  - normal spaces, space bar only (dont tab)
+  - use arrow key only when editing
+
+
+*****
+ANSIBLE LAB WORKS
+
+>Punta VMWARE
+>Made sure CENTOS in there
+> created R1, R2, R3
+> double clicjk uyng nasa baba
+
+
+CENTOS IP : 192.168.108.128
+R1 IP : 192.168.108.170
+R2 IP : 192.168.108.171
+R2 IP : 192.168.108.172
+
+
+
+
+CENTOS :
+>SODU su
+
+nano hosts    ------------->> lalabas lahat ng devices
+[R1]  ----->>>> Add natin ung R1 na device (virtual)
+192.168.108.172
+
+Crt S and ctr X  ----->>> punta to sa secureCRT na CENTOS balik sa sa dati
+
+>nano R1.yml
+
+
+>nano hosts ---- dag dag nbg R1, R2 R2 sa CENTOS
+
+
+
+********************************************
+ACTUAL DEVICES ANSIBLE LAB
+
+1st step ERASE mga config ng core baba/edge/cucm
+
+Punta sa CENTOS na secureCRT
+
+[root@centosstream9 ansible]# git clone https://github.com/rivan16/ansible ------>>> access ung existing ng scripts
+
+[root@centosstream9 ansible]# cd ansible
+root@centosstream9 ansible]# nano dhcp.yml
+
+---->> Palitan mo lahat ng .21 ung _ na IP ADD
+
+Control S Contro X
+[root@centosstream9 ansible]# nano phone.yml
+
+---->> Palitan mo lahat ng .21 ung _ na IP ADD and add the MAC of the two phones
+
+
+
+[root@centosstream9 ansible]# nano call.yml
+
+---->> hanapin m onitor number lagyan # ung station mo
+
+
+***********************
+ETO GAWIN MO SA ANSIBLE - DAY 1 Task
+
+1. PASTE THE BASIC CONFIF TO SWITCH, CUCM, EDGE
+2. USING CONSOLE SERIAL (serial) --- config.txt
+
+OPEN VMWARE - power on CENTOS
+sudu su
+cd /etc/ansible
+ping 10.21.1.4 - corebaba - PAG na PING
+ansible-playbook dhcp.yml
+
+
+route add cmd
+route add 10.0.0.0 mask 255.0.0.0 10.21.1.4
+route add 200.0.0.0 mask 255.255.255.0 10.21.1.4
+
+FROM CETOS PING CUMCM and EDGE
+ping 10.21.100.8
+ping 10.21.21.1
+
+ansible-playbook run_all.yml
+
+
+********************
+pano gamit CMD clone folder sa desktop
+
+C:\Users\Administrator>cd desktop
+
+C:\Users\Administrator\Desktop>cd _Mervin-NETENG
+
+C:\Users\Administrator\Desktop\_Mervin-NETENG>git clone https://github.com/rivan16/ansible
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+DAY 2 HAPON
+
+Network Engineer + Ansible = Dev Ops
+
+
+
+LAB
+VMWARE
+RUN RSTHAYUP
+Make sure naka NAT yung settings
+Make sure IP add is 192.XXXX
+Log in : root/C1sc0123
+run >> rm -r /etc/udev/rules.d/70-presistent-net.rules
+
+Run 
+
+NOTe : IP - 192.168.108.173
+
+TASK 1 : Static and Defauult Routing on P1/P2
+
+STATIC ROUTING
+
+P1
+   config t
+   int e0/0
+   ip add 10.2.1.101 255.255.255.0
+   no shut
+   end
+  
+  >>sh ip int bri
+  - dapat makita mo IP mo na inasign sa etheret 0/0 na 10.2.1.101
+
+P2
+   config t
+   int e1/0
+   ip add 10.2.1.102 255.255.255.0
+   no shut
+   end
+  
+  >>sh ip int bri
+  - dapat makita mo IP mo na inasign sa etheret 0/0 na 10.2.1.101
+
+ 
+NOTE : Pag nagkamali ka ng assign ng ip, dag dag ka ng "no" sa "ip add 10.2.1.102 255.255.255.0"
+       see below example
+
+example 
+
+  config t
+   int e1/0
+   no ip add 10.2.1.102 255.255.255.0
+   no shut
+   end
